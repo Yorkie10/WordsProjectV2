@@ -7,15 +7,25 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
+    @AppStorage("selectedTab") var selectedTab: Tab = .main
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack(alignment: .bottom) {
+            Group {
+                switch selectedTab {
+                case .main:           MainView()
+                case .favorities:     FavoritesView()
+                case .notifications:  FavoritesView()
+                case .library:        FavoritesView()
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            TabBar()
         }
-        .padding()
+        .safeAreaInset(edge: .bottom) {
+            Color.clear.frame(height: 44)
+        }
     }
 }
 
